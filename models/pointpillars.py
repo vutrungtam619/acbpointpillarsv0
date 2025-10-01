@@ -195,7 +195,7 @@ class BottleNeck(nn.Module):
         self.decoder_blocks = nn.ModuleList()
         for i in range(len(in_channels)):
             decoder_block = []
-            decoder_block.append(nn.ConvTranspose2d(in_channels, out_channels[i], upsample_strides[i], stride=upsample_strides[i], bias=False))
+            decoder_block.append(nn.ConvTranspose2d(in_channels[i], out_channels[i], upsample_strides[i], stride=upsample_strides[i], bias=False))
             decoder_block.append(nn.BatchNorm2d(out_channels[i], eps=1e-3, momentum=0.01))
             decoder_block.append(nn.ReLU(inplace=True))
 
