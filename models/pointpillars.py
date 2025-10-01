@@ -142,9 +142,9 @@ class Backbone(nn.Module):
         self.multi_blocks = nn.ModuleList()
         for i in range(len(layer_strides)):
             blocks = []
-            blocks.append(AsymmetricConvBlock(in_channels, out_channels[i], stride=layer_strides[i]))
+            blocks.append(AsymmetricConvBlock(in_channels, out_channels[i], kernel_size=3, stride=layer_strides[i]))
             for _ in range(layer_nums[i]):
-                blocks.append(AsymmetricConvBlock(out_channels[i], out_channels[i], stride=1))
+                blocks.append(AsymmetricConvBlock(out_channels[i], out_channels[i], kernel_size=3, stride=1))
 
             in_channels = out_channels[i]
             self.multi_blocks.append(nn.Sequential(*blocks))
