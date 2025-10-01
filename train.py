@@ -253,7 +253,6 @@ if __name__ == '__main__':
     parser.add_argument('--init_lr', default=config['init_lr'])
     parser.add_argument('--epoch', default=config['epoch'])
     parser.add_argument('--ckpt_freq', default=config['ckpt_freq'])
-    parser.add_argument('--log_freq', default=config['log_freq'])
     args = parser.parse_args()
     
     main(args)      

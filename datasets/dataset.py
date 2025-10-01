@@ -36,12 +36,13 @@ class Kitti(Dataset):
         self.data_infos = read_pickle(Path(root) / 'datasets' / f'infos_{split}.pkl')
         self.sorted_ids = list(self.data_infos.keys())        
         self.classes = config['classes']
-        db_infos = read_pickle(Path(root) / 'datasets' / f'infos_{split}_database.pkl')
-        db_infos = self.filter_db(db_infos)
-        
-        db_sample = {}
-        for cat_name in self.classes:
-            db_sample[cat_name] = BaseSampler(db_infos[cat_name], shuffle=True)
+        if split == 'train':
+            db_infos = read_pickle(Path(root) / 'datasets' / f'infos_{split}_database.pkl')
+            db_infos = self.filter_db(db_infos)
+            
+            db_sample = {}
+            for cat_name in self.classes:
+                db_sample[cat_name] = BaseSampler(db_infos[cat_name], shuffle=True)
             
         self.data_aug_config = {
             'database_sampled': {'db_sample': db_sample, 'sample_groups': {'Car': 15, 'Pedestrian': 15, 'Cyclist': 10},},
