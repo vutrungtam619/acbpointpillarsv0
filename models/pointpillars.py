@@ -43,7 +43,7 @@ class PillarLayer(nn.Module):
     
 class PillarEncoder(nn.Module):
     def __init__(self, voxel_size, point_cloud_range, out_channels):
-        super(PillarEncoder).__init__()
+        super(PillarEncoder, self).__init__()
         self.out_channels = out_channels
         self.vx, self.vy = voxel_size[0], voxel_size[1]
         self.x_offset = voxel_size[0] / 2 + point_cloud_range[0]
@@ -133,7 +133,7 @@ class AsymmetricConvBlock(nn.Module):
         
 class Backbone(nn.Module):
     def __init__(self, in_channels, out_channels, layer_nums, layer_strides):
-        super().__init__()
+        super(Backbone, self).__init__()
         assert len(out_channels) == len(layer_nums)
         assert len(out_channels) == len(layer_strides)
         
@@ -186,7 +186,7 @@ class SEBlock(nn.Module):
     
 class BottleNeck(nn.Module):
     def __init__(self, in_channels, out_channels, upsample_strides):
-        super().__init__()
+        super(BottleNeck, self).__init__()
         assert len(in_channels) == len(upsample_strides)
         assert len(upsample_strides) == len(out_channels)
         
@@ -220,7 +220,7 @@ class BottleNeck(nn.Module):
     
 class Head(nn.Module):
     def __init__(self, in_channel, n_anchors, n_classes):
-        super().__init__()
+        super(Head, self).__init__()
         
         self.conv_cls = nn.Conv2d(in_channel, n_anchors*n_classes, 1)
         self.conv_reg = nn.Conv2d(in_channel, n_anchors*7, 1)
