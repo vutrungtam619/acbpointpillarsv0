@@ -436,7 +436,7 @@ class PointPillars(nn.Module):
         
         pillar_features = self.pillar_encoder(pillars, coors_batch, npoints_per_pillar, batch_size) # (B, C, H, W)
         
-        features = Backbone(pillar_features) # [(B, C, H/2, W/2), (B, 2C, H/4, W/4), (B, 4C, H/8, W/8)]
+        features = self.backbone(pillar_features) # [(B, C, H/2, W/2), (B, 2C, H/4, W/4), (B, 4C, H/8, W/8)]
         
         se1 = self.se1(features[0])
         se2 = self.se2(features[1])
