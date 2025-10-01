@@ -11,7 +11,7 @@ config = {
     'point_cloud_range': [0, -39.68, -3, 69.12, 39.68, 1],
     'voxel_size': [0.16, 0.16, 4],
     'max_voxels': (16000, 16000),
-    'max_points': 32,
+    'max_points': 64,
     'batch_size_train': 4,
     'batch_size_val': 4,
     'num_workers': 4,
