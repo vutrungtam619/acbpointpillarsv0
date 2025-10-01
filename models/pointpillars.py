@@ -131,6 +131,8 @@ class AsymmetricConvBlock(nn.Module):
         vertical_feature = self.vertical_block(feature)
         out = self.relu(square_feature + horizontal_feature + vertical_feature)
         
+        return out
+        
 class Backbone(nn.Module):
     def __init__(self, in_channels, out_channels, layer_nums, layer_strides):
         super(Backbone, self).__init__()
