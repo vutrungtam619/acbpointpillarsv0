@@ -44,13 +44,13 @@ class Kitti(Dataset):
             for cat_name in self.classes:
                 db_sample[cat_name] = BaseSampler(db_infos[cat_name], shuffle=True)
             
-        self.data_aug_config = {
-            'database_sampled': {'db_sample': db_sample, 'sample_groups': {'Car': 15, 'Pedestrian': 15, 'Cyclist': 10},},
-            'object_noise': {'num_try': 100, 'translation_std': [0.25, 0.25, 0.25], 'rot_range': [-0.15707963267, 0.15707963267]},
-            'global_rot_scale_trans': {'rot_range': [-0.78539816, 0.78539816], 'scale_ratio_range': [0.95, 1.05], 'translation_std': [0, 0, 0]},
-            'point_range_filter': config['point_cloud_range'],
-            'object_range_filter': config['point_cloud_range'],
-        }
+            self.data_aug_config = {
+                'database_sampled': {'db_sample': db_sample, 'sample_groups': {'Car': 15, 'Pedestrian': 15, 'Cyclist': 10},},
+                'object_noise': {'num_try': 100, 'translation_std': [0.25, 0.25, 0.25], 'rot_range': [-0.15707963267, 0.15707963267]},
+                'global_rot_scale_trans': {'rot_range': [-0.78539816, 0.78539816], 'scale_ratio_range': [0.95, 1.05], 'translation_std': [0, 0, 0]},
+                'point_range_filter': config['point_cloud_range'],
+                'object_range_filter': config['point_cloud_range'],
+            }
 
     def __len__(self):
         return len(self.data_infos)
@@ -122,8 +122,7 @@ class Kitti(Dataset):
             )
         else:
             data_dict = val_data_aug(
-                data_dict=data_dict,
-                data_aug_config=self.data_aug_config,
+                data_dict=data_dict
             )        
             
         return data_dict
