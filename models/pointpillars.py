@@ -107,19 +107,20 @@ class PillarEncoder(nn.Module):
 class AsymmetricConvBlock(nn.Module):
     def __init__(self, in_channels, out_channels, kernel_size=None, stride=None):
         super(AsymmetricConvBlock, self).__init__()
+        padding = kernel_size // 2
         # dxd
         self.square_block = nn.Sequential(
-            nn.Conv2d(in_channels, out_channels, kernel_size=kernel_size, stride=stride, padding=1, bias=False),
+            nn.Conv2d(in_channels, out_channels, kernel_size=kernel_size, stride=stride, padding=padding, bias=False),
             nn.BatchNorm2d(out_channels),
         )
         # 1xd
         self.horizontal_block = nn.Sequential(
-            nn.Conv2d(in_channels, out_channels, kernel_size=(1, kernel_size), stride=stride, padding=(0, 1), bias=False),
+            nn.Conv2d(in_channels, out_channels, kernel_size=(1, kernel_size), stride=stride, padding=(0, padding), bias=False),
             nn.BatchNorm2d(out_channels),
         )
         # dx1
         self.vertical_block = nn.Sequential(
-            nn.Conv2d(in_channels, out_channels, kernel_size=(kernel_size, 1), stride=stride, padding=(1, 0), bias=False),
+            nn.Conv2d(in_channels, out_channels, kernel_size=(kernel_size, 1), stride=stride, padding=(padding, 0), bias=False),
             nn.BatchNorm2d(out_channels),
         )
         

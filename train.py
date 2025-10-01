@@ -17,7 +17,6 @@ def save_summary(writer, loss_dict, global_step, tag, lr=None, momentum=None):
         writer.add_scalar('momentum', momentum, global_step)
         
 def main(args):
-    setup_seed()
     checkpoint_folder = Path(args.checkpoint_dir)
     checkpoint_folder.mkdir(exist_ok=True)
     log_folder = Path(args.log_dir)
