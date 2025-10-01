@@ -51,6 +51,11 @@ class Kitti(Dataset):
                 'point_range_filter': config['point_cloud_range'],
                 'object_range_filter': config['point_cloud_range'],
             }
+        else:
+            self.data_aug_config = {
+                'point_range_filter': config['point_cloud_range'],
+                'object_range_filter': config['point_cloud_range'],
+            }           
 
     def __len__(self):
         return len(self.data_infos)
@@ -122,7 +127,8 @@ class Kitti(Dataset):
             )
         else:
             data_dict = val_data_aug(
-                data_dict=data_dict
+                data_dict=data_dict,
+                data_aug_config=self.data_aug_config,
             )        
             
         return data_dict
