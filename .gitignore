@@ -7,6 +7,6 @@ packages/*.pyd
 Kitti/
 logs/
 datasets/*.pkl
-datasets/reduced/
+datasets/point_cloud_reduced/
 datasets/train_gt_database/
 results/
