@@ -168,25 +168,6 @@ class Backbone(nn.Module):
             out.append(x)
         return out
     
-class SEBlock(nn.Module):
-    def __init__(self, channels, reduction=16):
-        super(SEBlock, self).__init__()
-        self.fc = nn.Sequential(
-            nn.Linear(channels, channels // reduction, bias=False),
-            nn.ReLU(inplace=True),
-            nn.Linear(channels // reduction, channels, bias=False),
-            nn.Sigmoid()
-        )
-    
-    def forward(self, x):
-        b, c, h, w = x.size()
-        # Global Average Pooling (Squeeze)
-        y = F.adaptive_avg_pool2d(x, 1).view(b, c)
-        # Excitation
-        y = self.fc(y).view(b, c, 1, 1)
-        # Scale
-        return x * y.expand_as(x)
-    
 class BottleNeck(nn.Module):
     def __init__(self, in_channels, out_channels, upsample_strides):
         super(BottleNeck, self).__init__()
@@ -287,10 +268,6 @@ class PointPillars(nn.Module):
             layer_nums=[3, 5, 5],
             layer_strides=[2, 2, 2],
         )
-        
-        self.se1 = SEBlock(channels=64, reduction=4)
-        self.se2 = SEBlock(channels=128, reduction=8)
-        self.se3 = SEBlock(channels=256, reduction=16)
         
         self.neck = BottleNeck(
             in_channels=[64, 128, 256],
@@ -439,11 +416,7 @@ class PointPillars(nn.Module):
         
         features = self.backbone(pillar_features) # [(B, C, H/2, W/2), (B, 2C, H/4, W/4), (B, 4C, H/8, W/8)]
         
-        se1 = self.se1(features[0])
-        se2 = self.se2(features[1])
-        se3 = self.se3(features[2])
-        
-        feature_map = self.neck([se1, se2, se3])
+        feature_map = self.neck(features)
         
         bbox_cls_pred, bbox_pred, bbox_dir_cls_pred = self.head(feature_map)
         
