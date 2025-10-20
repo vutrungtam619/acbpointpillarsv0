@@ -375,7 +375,7 @@ def main(args):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Configuration Parameters')
     parser.add_argument('--data_root', default=config['data_root'])
-    parser.add_argument('--ckpt', default='checkpoints/epoch_100.pth')
+    parser.add_argument('--ckpt', default='checkpoints/epoch_160.pth')
     parser.add_argument('--saved_path', default=config['saved_path'])
     parser.add_argument('--batch_size', type=int, default=config['batch_size_val'])
     parser.add_argument('--num_workers', type=int, default=config['num_workers'])
